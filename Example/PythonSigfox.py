@@ -11,10 +11,7 @@ ser=serial.Serial("/dev/ttyS0")
 ser.baudrate=9600
 ##----------
 
-def SigfoxInfo():
-
-        if ser.isOpen:                   #Check if port is open
-                print("port is open")
+def SigfoxInfo():        
                 ser.write("AT\r\n")      #Write AT Command
                 data=ser.read(2)         #Response Should be OK
                 print(data)
@@ -44,7 +41,10 @@ red.on()
 sleep(1)
 red.off()
 sleep(1)
-SigfoxInfo()
-
-SigfoxSend()
+if ser.isOpen:  #Check if port is open
+        print("Port is Open")    
+        SigfoxInfo()
+        SigfoxSend()
+else:
+        print("Could not Open Serial Port")                
 ser.close()
