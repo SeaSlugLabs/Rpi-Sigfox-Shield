@@ -30,6 +30,9 @@ def SigfoxSend():
                 #Initiate a Transmission
                 print("Init Transmission")
                 sleep(1)
+                ser.write("AT$RC\r\n") #Send Command to Reset Macro Channels
+                data=ser.read(4)
+                print(data)
                 ser.write("AT$SF=AABBCCDD\r\n")
                 sleep(6)
                 data=ser.read(4)        #We should get a OK response
